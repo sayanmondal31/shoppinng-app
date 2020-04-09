@@ -1,21 +1,26 @@
 import 'package:advancedtest/cartView.dart';
+import 'package:advancedtest/cartviewItem.dart';
 import 'package:advancedtest/model/mycart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MyCartPage extends StatelessWidget {
-   _showSnackbar(BuildContext context){
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text("All items deleted",textAlign: TextAlign.center,style: TextStyle(
-      color:Colors.red,
-      fontSize:20
-    ),)));
+  _showSnackbar(BuildContext context) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text(
+      "All items deleted",
+      textAlign: TextAlign.center,
+      style: TextStyle(color: Colors.red, fontSize: 20),
+    )));
   }
+
   @override
   Widget build(BuildContext context) {
-    
+    final int amount = Provider.of<MyCart>(context).totalPrice;
     return Scaffold(
-
+      backgroundColor: Colors.blue,
       appBar: AppBar(
+        elevation: 0,
         leading: GestureDetector(
             onTap: () {
               Navigator.of(context).pop();
@@ -24,10 +29,8 @@ class MyCartPage extends StatelessWidget {
         title: Center(child: Text("My cart")),
         actions: <Widget>[
           Builder(
-            builder: (context)=>
-                       GestureDetector(
+            builder: (context) => GestureDetector(
                 onTap: () {
-                  
                   Provider.of<MyCart>(context, listen: false).removeAll();
                   _showSnackbar(context);
                 },
@@ -42,19 +45,46 @@ class MyCartPage extends StatelessWidget {
           )
         ],
       ),
-      body: Consumer<MyCart>(
-        builder: (context, cart, child) {
-          return ListView.builder(
-            itemCount: cart.total_cart_item,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(cart.cartItem[index].text),
-              );
-            },
-          );
-        },
-      ),
-      
+    body: Column(
+
+      children:<Widget>[
+        Container(
+          padding:EdgeInsets.symmetric(vertical:70,horizontal: 20),
+          
+          child: Center(child: Card(
+            elevation: 20,
+            margin: EdgeInsets.all(20),
+            color: Colors.blueAccent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("Total amount: \$",style: TextStyle(
+                  fontSize: 25
+                ),),
+                Text(amount.toString(),style: TextStyle(
+                  fontSize:30
+                ),),
+              ],
+            ),
+          )),
+        ),
+        Expanded(
+                  child: Container(
+            
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(10),
+                topLeft: Radius.circular(10)
+              )
+            ),
+            child: CartItemViwe(),
+          ),
+        )
+      ]
+    ),
     );
   }
 }
+// ,
+

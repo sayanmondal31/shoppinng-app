@@ -39,6 +39,10 @@ class MyCart extends ChangeNotifier{
     notifyListeners();
   }
 
+  void removeItem(Item item){
+    _cartitem.remove(item);
+  }
+
    void addtocategory(String addeditem){
     final categoryitem = Item(text:addeditem);
     _item.add(categoryitem);
