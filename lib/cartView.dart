@@ -14,7 +14,7 @@ class CartView extends StatelessWidget {
             final catelog = mycart.items[index];
             return CartTile(
               button: () {
-                Provider.of<MyCart>(context,listen: false).add(catelog.text);
+                Provider.of<MyCart>(context,listen: false).addtocart(catelog.text);
               },
               text: catelog.text,
             );

@@ -12,6 +12,7 @@ class MyCart extends ChangeNotifier{
     Item(text: 'green' ),
     Item(text: 'yellow' ),
     Item(text: 'pink'),
+    Item(text: 'indigo')
   ];
 
   List<Item> _cartitem = [];
@@ -26,7 +27,7 @@ class MyCart extends ChangeNotifier{
   int get totalPrice => _item.length * 42;
 
   //now add item to new cart
-  void add(String addeditem){
+  void addtocart(String addeditem){
     final cartitem = Item(text:addeditem);
     _cartitem.add(cartitem);
     notifyListeners();
@@ -38,4 +39,9 @@ class MyCart extends ChangeNotifier{
     notifyListeners();
   }
 
+   void addtocategory(String addeditem){
+    final categoryitem = Item(text:addeditem);
+    _item.add(categoryitem);
+    notifyListeners();
+  }
 }
